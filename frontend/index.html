@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terminal-like NLP Classification</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var socket = io.connect('http://localhost:5000');
+            socket.on('message', function(msg) {
+                document.getElementById('chatbox').innerHTML += '<br>' + msg;
+            });
+
+            document.getElementById('text').addEventListener('input', function(e) {
+                document.getElementById('remaining').innerHTML = 600 - e.target.value.length + ' characters remaining';
+            });
+
+            document.getElementById('predict').onclick = function() {
+                socket.emit('message', document.getElementById('text').value);
+                document.getElementById('text').value = '';
+            };
+
+            document.getElementById('new').onclick = function() {
+                document.getElementById('chatbox').innerHTML = '';
+                document.getElementById('text').value = '';
+                document.getElementById('remaining').innerHTML = '600 characters remaining';
+            };
+        });
+    </script>
+</head>
+<body>
+    <div id="terminal">
+        <textarea id="text" type="text" maxlength="600"></textarea>
+        <div id="remaining">600 characters remaining</div>
+        <div id="button-container">
+            <button id="predict">Predict</button>
+            <button id="new">New</button>
+        </div>
+        <div id="chatbox"></div>
+    </div>
+</body>
+</html>
