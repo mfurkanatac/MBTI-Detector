@@ -13,3 +13,6 @@ There will be seperate readme files inside every work folder, I have seperated t
 
 Thank you in advance.
 
+## Future of this project:
+
+- Can work on most used words and ask questions about them to direct the user to having a better sense whilw writing their answer for us to analyze. Reddit is a place where people ask questions and people answer.
